@@ -9,32 +9,35 @@ class DicePage extends StatefulWidget {
 }
 
 class _DicePageState extends State<DicePage> {
+  static const _imagePrefix = 'assets/images/';
+  static  final _random = Random();
 
+  var imagePath1 = '${_imagePrefix}dice1.png';
 
-
+  var imagePath2 = '${_imagePrefix}dice1.png';
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        buildDie('assets/images/dice1.png', roleDie1),
-
-        buildDie('assets/images/dice5.png', roleDie2),
-
+        buildDie(imagePath1),
+        buildDie(imagePath2),
       ],
     );
   }
 
 
-  void roleDie1() {
-
+  void roleDie() {
+    setState(() {
+      var number = _random.nextInt(6) + 1;
+      imagePath1 = '${_imagePrefix}dice$number.png';
+      number = _random.nextInt(6) + 1;
+      imagePath2 = '${_imagePrefix}dice$number.png';
+    });
   }
 
-  void roleDie2() {
 
-  }
-
-  Expanded buildDie(String imagePath, void Function() roleDie) {
+  Expanded buildDie(String imagePath) {
     return Expanded(
       child: TextButton(
         onPressed: () => roleDie(),
